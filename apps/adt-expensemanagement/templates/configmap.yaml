@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "adt-expensemanagement.fullname" . }}-configmap
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "adt-expensemanagement.labels" . | nindent 4 }}
+data:
+    spring.zipkin.baseUrl: "http://zipkin:9411/"
+    spring.jpa.hibernate.ddl-auto: none
+    spring.datasource.hikari.connection-timeout: "20000"
+    spring.datasource.hikari.minimum-idle: "2"
+    spring.datasource.hikari.maximum-pool-size: "2"
+    spring.datasource.hikari.idle-timeout: "300000"
+    spring.datasource.hikari.max-lifetime: "1800000"
+    spring.datasource.hikari.auto-commit: "true"

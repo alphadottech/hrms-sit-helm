@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "adt-hrms.fullname" . }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "adt-hrms.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "adt-hrms.labels" . | nindent 8 }}
+    spec:
+      containers:
+      - env:
+        - name: server.port
+          value: "{{ .Values.service.port }}"
+        - name: "server.servlet.context-path"
+          value: "/hrms"
+        envFrom:
+         - configMapRef: 
+             name: {{ include "adt-hrms.fullname" . }}-configmap 
+         - secretRef:
+             name: {{ include "adt-hrms.fullname" . }}-secret            
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag}}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        name: hrms
+        ports:
+        - containerPort: {{ .Values.service.port }}
+          name: http
+          protocol: TCP
