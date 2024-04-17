@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "adt-auth.fullname" . }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "adt-auth.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "adt-auth.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "adt-auth.labels" . | nindent 8 }}
+    spec:
+      containers:
+      - env:
+        - name: server.port
+          value: "{{ .Values.service.port }}"
+        envFrom:
+         - configMapRef: 
+             name: {{ include "adt-auth.fullname" . }}-configmap  
+         - secretRef:
+             name: {{ include "adt-auth.fullname" . }}-secret             
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag}}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        name: {{ .Chart.Name }}
+        ports:
+        - containerPort: {{ .Values.service.port }}
+          name: http
+          protocol: TCP

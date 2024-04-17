@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "adt-auth.fullname" . }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "adt-auth.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+  - name: http
+    port: {{ .Values.service.port }}
+    protocol: TCP
+    targetPort: {{ .Values.service.port }}
+  selector:
+    {{- include "adt-auth.selectorLabels" . | nindent 6 }}

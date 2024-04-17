@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "adt-gateway.fullname" . }}
+  namespace: {{ .Values.namespace }}
+  labels: 
+    {{- include "adt-gateway.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "adt-gateway.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "adt-gateway.labels" . | nindent 8 }}
+    spec:
+      containers:
+      - env:
+        - name: server.port
+          value: "{{ .Values.service.port }}"
+        - name: "server.servlet.context-path"
+          value: "{{ .Values.contextPath }}"
+        envFrom:
+         - configMapRef: 
+             name: {{ include "adt-gateway.fullname" . }}-configmap   
+         - secretRef:
+             name: {{ include "adt-gateway.fullname" . }}-secret            
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag}}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        name: {{ .Chart.Name }}
+        ports:
+        - containerPort: {{ .Values.service.port }}
+          name: http
+          protocol: TCP
