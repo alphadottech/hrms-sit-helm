@@ -24,3 +24,4 @@ data:
     spring.mail.host: "smtp-relay.brevo.com"
     spring.mail.username: "ajaymishra.adt@gmail.com"
     spring.mail.password: "Y8hzB7p05cDQWUwE"
+    api.form.html: "ACCEPT_LEAVE_REQUEST,REJECT_LEAVE_REQUEST,ACCEPT_PRIORTIME_REQUEST,REJECT_PRIORTIME_REQUEST"
