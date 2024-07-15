@@ -19,11 +19,29 @@ spec:
       - env:
         - name: server.port
           value: "{{ .Values.service.port }}"
+        - name: spring.datasource.password
+          valueFrom:
+            secretKeyRef:
+              name: sithrmspostgresqlpwd
+              key: SIT-HRMS-POSTGRESQL-PWD
+        - name: spring.datasource.username
+          valueFrom:
+            secretKeyRef:
+              name: sithrmspostgresqlusername
+              key: SIT-HRMS-POSTGRESQL-USERNAME
+        - name: app.jwt.secret
+          valueFrom:
+            secretKeyRef:
+              name: sithrmssecretjwt
+              key: SIT-HRMS-SECRET-JWT
+        - name: spring.datasource.url
+          valueFrom:
+            secretKeyRef:
+              name: sithrmsdatabaseurl
+              key: SIT-HRMS-DATABASE-URL   
         envFrom:
          - configMapRef: 
-             name: {{ include "adt-auth.fullname" . }}-configmap  
-         - secretRef:
-             name: {{ include "adt-auth.fullname" . }}-secret             
+             name: {{ include "adt-auth.fullname" . }}-configmap          
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag}}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         name: {{ .Chart.Name }}
