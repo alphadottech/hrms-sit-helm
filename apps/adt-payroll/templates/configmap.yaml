@@ -24,6 +24,6 @@ data:
     spring.mail.username: "alphadottest@gmail.com"
     spring.mail.password: "yabinxmdeuocynzx"
     spring.mail.properties.mail.smtp.auth: "true"
-    spring.mail.cc: "nishasingh.adt@gmail.com"
+    spring.mail.cc: "alphadotsit.adt@gmail.com"
     spring.mail.properties.mail.smtp.starttls.enable: "true"
     api.form.html: "ACCEPT_LEAVE_REQUEST,REJECT_LEAVE_REQUEST,ACCEPT_PRIORTIME_REQUEST,REJECT_PRIORTIME_REQUEST"
