@@ -13,3 +13,7 @@ data:
     spring.datasource.hikari.idle-timeout: "300000"
     spring.datasource.hikari.max-lifetime: "1800000"
     spring.datasource.hikari.auto-commit: "true"
+    spring.mail.host: "smtp.gmail.com"
+    spring.mail.username: "alphadotsit.adt@gmail.com"
+    spring.mail.password: "tplyqqiwdwsvtdux"
+    spring.mail.properties.mail.smtp.auth: "true"

@@ -11,9 +11,3 @@ data:
     hrms.service.url: "http://adt-hrms:9093/"
     payroll.service.url: "http://adt-payroll:9094/"
     expense.service.url: "http://adt-expensemanagement:9095/"
-    spring.jpa.hibernate.ddl-auto: none
-    spring.datasource.hikari.connection-timeout: "20000"
-    spring.datasource.hikari.minimum-idle: "2"
-    spring.datasource.hikari.idle-timeout: "300000"
-    spring.datasource.hikari.max-lifetime: "1800000"
-    spring.datasource.hikari.auto-commit: "true"
