@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "adt-utilityservice.fullname" . }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "adt-utilityservice.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "adt-utilityservice.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "adt-utilityservice.labels" . | nindent 8 }}
+    spec:
+      containers:
+      - env:
+        - name: server.port
+          value: "{{ .Values.service.port }}"
+        - name: spring.datasource.password
+          valueFrom:
+            secretKeyRef:
+              name: sithrmspostgresqlpwd
+              key: SIT-HRMS-POSTGRESQL-PWD
+        - name: spring.datasource.username
+          valueFrom:
+            secretKeyRef:
+              name: sithrmspostgresqlusername
+              key: SIT-HRMS-POSTGRESQL-USERNAME
+        - name: app.jwt.secret
+          valueFrom:
+            secretKeyRef:
+              name: sithrmssecretjwt
+              key: SIT-HRMS-SECRET-JWT
+        - name: spring.datasource.url
+          valueFrom:
+            secretKeyRef:
+              name: sithrmsdatabaseurl
+              key: SIT-HRMS-DATABASE-URL   
+        envFrom:
+         - configMapRef: 
+             name: {{ include "adt-utilityservice.fullname" . }}-configmap          
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag}}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        name: {{ .Chart.Name }}
+        ports:
+        - containerPort: {{ .Values.service.port }}
+          name: http
+          protocol: TCP
