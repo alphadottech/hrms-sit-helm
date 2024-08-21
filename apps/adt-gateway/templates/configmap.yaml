@@ -11,3 +11,4 @@ data:
     hrms.service.url: "http://adt-hrms:9093/"
     payroll.service.url: "http://adt-payroll:9094/"
     expense.service.url: "http://adt-expensemanagement:9095/"
+    utility.service.url: "http://adt-utilityservice:9096/"
