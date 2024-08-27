@@ -6,7 +6,6 @@ metadata:
   labels:
     {{- include "adt-utilityservice.labels" . | nindent 4 }}
 data:
-    spring.zipkin.baseUrl: "http://zipkin:9411/"
     spring.mail.host: "smtp.gmail.com"
     spring.mail.username: "alphadotsit.adt@gmail.com"
     spring.mail.password: "tplyqqiwdwsvtdux"
