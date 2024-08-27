@@ -17,3 +17,6 @@ data:
     spring.mail.username: "alphadotsit.adt@gmail.com"
     spring.mail.password: "tplyqqiwdwsvtdux"
     spring.mail.properties.mail.smtp.auth: "true"
+    email.service.url: "https://sit.hrms.alphadot.co.in/gateway"
+    -Dmy.property: "sit.hrms.alphadot.co.in"
+    -Dmy.port: "443"
