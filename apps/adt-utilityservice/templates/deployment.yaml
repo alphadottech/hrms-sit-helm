@@ -19,6 +19,8 @@ spec:
       - env:
         - name: server.port
           value: "{{ .Values.service.port }}"
+        - name: "server.servlet.context-path"
+          value: "/utility"
         - name: spring.datasource.password
           valueFrom:
             secretKeyRef:
